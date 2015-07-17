@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "js2xmlparser": "^0.1.9",
     "odata-parser": "^1.2.1"
   },
   "devDependencies": {},
