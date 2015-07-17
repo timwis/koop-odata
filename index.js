@@ -1,27 +1,19 @@
 var parser = require('odata-parser'),
+  serialize = require('./util/serialize'),
   translations = require('./translations');
 
 exports.type = 'plugin';
 exports.name = 'odata';
 
-// Convert back to a string so the parsing library can handle it (TODO: not this)
-var serialize = function(obj) {
-  var queries = [];
-  for(var i in obj) {
-    if(obj.hasOwnProperty(i)) {
-      queries.push(i + "=" + obj[i]);
-    }
-  }
-  return queries.join('&');
-};
-
 exports.parse = function(req, res) {
+  // Convert the query back to a querystring (parsing library expects that format) and parse it
   var ast = parser.parse(serialize(req.query)),
     esriQuery = {};
-  //console.log('Parsing', req.query, ast);
+
+  // Loop through translations and apply those appropriate into a new query object
   translations.forEach(function(translation) {
-    if(ast[translation.ast] !== undefined) {
-      esriQuery[translation.esri] = translation.translate(ast[translation.ast]);
+    if(ast[translation.odata] !== undefined) {
+      esriQuery[translation.esri] = translation.translate(ast[translation.odata]);
     }
   });
   req.query = esriQuery;

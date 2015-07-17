@@ -13,28 +13,28 @@ var enclose = function(val) {
 
 module.exports = [
   {
-    ast: '$top',
+    odata: '$top',
     esri: 'resultRecordCount',
     translate: function(val) {
       return val;
     }
   },
   {
-    ast: '$skip',
+    odata: '$skip',
     esri: 'resultOffset',
     translate: function(val) {
       return val;
     }
   },
   {
-    ast: '$select',
+    odata: '$select',
     esri: 'outFields',
     translate: function(val) {
       return val.join(', ');
     }
   },
   {
-    ast: '$filter',
+    odata: '$filter',
     esri: 'where',
     translate: function(val) {
       if(val.type === 'and' || val.type === 'or') {
