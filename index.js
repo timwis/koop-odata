@@ -1,6 +1,4 @@
-var ODataServer = require('simple-odata-server'),
-  //query = require('simple-odata-server/lib/query'),
-  parser = require('odata-parser'),
+var parser = require('odata-parser'),
   translations = require('./translations');
 
 exports.type = 'plugin';
@@ -26,7 +24,5 @@ exports.parse = function(req, res) {
       esriQuery[translation.esri] = translation.translate(ast[translation.ast]);
     }
   });
-  //console.log('Esri Query', esriQuery);
-
-  res.json(esriQuery);
-}
+  req.query = esriQuery;
+};
