@@ -7,6 +7,10 @@ var operators = {
   'gte': '>='
 };
 
+var enclose = function(val) {
+  return typeof val === 'string' ? '\'' + val + '\'' : val;
+};
+
 module.exports = [
   {
     ast: '$top',
@@ -33,7 +37,20 @@ module.exports = [
     ast: '$filter',
     esri: 'where',
     translate: function(val) {
-      return [val.left.name, operators[val.type], right.value].join(' ');
+      if(val.type === 'and' || val.type === 'or') {
+        return [
+          this.translate(val.left),
+          val.type,
+          this.translate(val.right)
+        ].join(' ');
+      }
+      else {
+        return [
+          val.left.name,
+          operators[val.type],
+          enclose(val.right.value)
+        ].join(' ')
+      };
     }
   }
 ]

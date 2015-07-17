@@ -1,8 +1,7 @@
 var ODataServer = require('simple-odata-server'),
-  query = require('simple-odata-server/lib/query'),
+  //query = require('simple-odata-server/lib/query'),
   parser = require('odata-parser'),
-  selectParser = require('./parser/select'),
-  filterParser = require('./parser/filter');
+  translations = require('./translations');
 
 exports.type = 'plugin';
 exports.name = 'odata';
@@ -19,14 +18,15 @@ var serialize = function(obj) {
 };
 
 exports.parse = function(req, res) {
-  var ast = parser.parse(serialize(req.query));
-  console.log('Parsing', req.query, ast);
+  var ast = parser.parse(serialize(req.query)),
+    esriQuery = {};
+  //console.log('Parsing', req.query, ast);
+  translations.forEach(function(translation) {
+    if(ast[translation.ast] !== undefined) {
+      esriQuery[translation.esri] = translation.translate(ast[translation.ast]);
+    }
+  });
+  //console.log('Esri Query', esriQuery);
 
-  res.json(ast);
-}
-
-var translate = function(ast) {
-  var query = {};
-
-  //TODO: Call translator.js
+  res.json(esriQuery);
 }
