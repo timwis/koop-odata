@@ -5,6 +5,7 @@ var parser = require('odata-parser'),
 
 exports.type = 'plugin';
 exports.name = 'odata';
+exports.contentType = 'xml';
 
 exports.parse = function(query) {
   if( ! Object.keys(query).length) return query;
@@ -24,7 +25,7 @@ exports.parse = function(query) {
   return esriQuery;
 };
 
-exports.output = function(geojson) {
+exports.formatOutput = function(geojson) {
   var records = geojson.features.map(function(feature) {
     return feature.properties;
   });
