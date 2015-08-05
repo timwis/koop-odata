@@ -2,9 +2,9 @@ var operators = {
   'eq': '=',
   'ne': '!=',
   'lt': '<',
-  'lte': '<=',
+  'le': '<=',
   'gt': '>',
-  'gte': '>='
+  'ge': '>='
 };
 
 var enclose = function(val) {
