@@ -1,7 +1,7 @@
 {
   "name": "koop-odata",
   "version": "1.0.0",
-  "description": "",
+  "description": "This plugin makes it possible to interact with Koop's many providers using an OData-compliant API",
   "main": "index.js",
   "dependencies": {
     "js2xmlparser": "^0.1.9",
@@ -11,6 +11,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Tim Wisniewski",
-  "license": "MIT"
+  "author": "timwis",
+  "license": "Apache-2.0"
 }
